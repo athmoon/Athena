@@ -30,7 +30,7 @@ void Temporizador::configura(numerico tempo) {
 	trava = 0;
 	TCCR0A = 0;
 	TCCR0B = bv(CS01)|bv(CS00);
-#ifndef	ATTINY
+#ifndef	ATHENA85
 	TIMSK0 = bv(TOIE);
 #else
 	TIMSK = bv(TOIE0);

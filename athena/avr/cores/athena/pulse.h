@@ -14,32 +14,34 @@
  */
 
 
-#ifndef _ENTRADAS_H_
-#define _ENTRADAS_H_
+#ifndef _PULSE_H_
+#define _PULSE_H_
 
 #include "defines.h"
 
-class Entrada {
+class Pulsador {
 	
 protected:
 
-	uint8_t _pino;
-	uint8_t _registradores;
+
+	logico _estado;
+	logico _trava;
 	
 private:
-	
-	virtual void 	configura(uint8_t, uint8_t);
-	virtual logico	leitura();
+
+	void verifica(logico);
+	logico leitura();
 
 public:
-
-	Entrada();
-	Entrada(uint8_t, uint8_t);
 	
+	Pulsador();
+	
+	void operator= (logico);
 	logico operator& (logico);
 	logico operator| (logico);
 	logico operator! ();
-
+	
 };
 
 #endif
+

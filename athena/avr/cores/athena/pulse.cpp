@@ -14,32 +14,37 @@
  */
 
 
-#ifndef _ENTRADAS_H_
-#define _ENTRADAS_H_
+#include "pulse.h"
 
-#include "defines.h"
+logico Pulsador::leitura() {
+	return _estado;
+}
 
-class Entrada {
-	
-protected:
+void Pulsador::verifica(logico io) {
+	if( io && _trava == 0 ) {
+		_estado = !_estado;
+		_trava = 1;
+	}
+	if( !io )
+		_trava = 0;
+}
 
-	uint8_t _pino;
-	uint8_t _registradores;
-	
-private:
-	
-	virtual void 	configura(uint8_t, uint8_t);
-	virtual logico	leitura();
+Pulsador::Pulsador() {
+	_estado = 0;
+}
 
-public:
+void Pulsador::operator= (logico v) {
+	verifica(v);
+}
 
-	Entrada();
-	Entrada(uint8_t, uint8_t);
-	
-	logico operator& (logico);
-	logico operator| (logico);
-	logico operator! ();
+logico Pulsador::operator& (logico v) {
+	return leitura()&v;
+}
 
-};
+logico Pulsador::operator| (logico v) {
+	return leitura()|v;
+}
 
-#endif
+logico Pulsador::operator! () {
+	return !leitura();
+}
