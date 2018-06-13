@@ -21,7 +21,7 @@ Analog::Analog() {
 	PRR &= ~bv(PRADC);
 }
 
-uint16_t Analog::read(uint8_t pin) {
+uint16_t Analog::read(uint8_t pino) {
 	if (pin != 0 || pin != 1)
 		return 0;
 	ADMUX &= ~(bv(MUX3)|bv(MUX2)|bv(MUX1)|bv(MUX0));

@@ -19,9 +19,9 @@ athena328p.upload.maximum_data_size=2048
 athena328p.upload.speed=115200
 
 athena328p.build.mcu=atmega328p
-athena328p.build.board=AVR_ATHENA328
+athena328p.build.board=AVR_ATHENA328P
 athena328p.build.core=athena
-athena328p.build.variant=standard
+athena328p.build.variant=athena328p
 athena328p.build.f_cpu=16000000L
 
 athena328p.bootloader.tool=avrdude
@@ -53,7 +53,7 @@ athena328.upload.speed=115200
 athena328.build.mcu=atmega328
 athena328.build.board=AVR_ATHENA328
 athena328.build.core=athena
-athena328.build.variant=standard
+athena328.build.variant=athena328
 athena328.build.f_cpu=16000000L
 
 athena328.bootloader.tool=avrdude
@@ -85,7 +85,7 @@ athena85.upload.speed=115200
 athena85.build.mcu=attiny85
 athena85.build.board=AVR_ATHENA85
 athena85.build.core=athena
-athena85.build.variant=tiny
+athena85.build.variant=athena85
 athena85.build.f_cpu=16000000L
 
 athena85.bootloader.tool=avrdude

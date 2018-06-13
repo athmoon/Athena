@@ -21,16 +21,16 @@
 #include <util/delay.h>
 #include <inttypes.h>
 #include <avr/pgmspace.h>
-#include <avr/eeprom.h>
 #include <avr/interrupt.h>
-#include <avr/wdt.h>
 #include <avr/sleep.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <string.h>
 #include <math.h>
 #include "pins_arduino.h"
+
+typedef bool logico;
+typedef uint8_t opcao;
+typedef uint8_t* sfr;
+typedef uint16_t numerico;
+typedef uint32_t longo;
 
 #define sbi(_sfr,_bit)		(_sfr|=(1<<_bit))
 #define cbi(_sfr,_bit)		(_sfr&=~(1<<_bit))
@@ -42,10 +42,15 @@
 #define bv(_bit)			(1<<_bit)
 #define nop() 				asm volatile ("nop")
 
-void loop();
+#define pin		0
+#define ddr		1
+#define port	2
 
-typedef bool logico;
-typedef int numerico;
+#define SFR_B		(sfr)&PINB
+#define SFR_C		(sfr)&PINC
+#define SFR_D		(sfr)&PIND
+
+void loop();
 
 #define programa		void loop()
 
@@ -56,5 +61,13 @@ typedef int numerico;
 #define paralelo	|
 #define na			!!
 #define nf			!
+
+/*Contador*/
+#define subida 	((opcao)100)
+#define descida	((opcao)101)
+#define mudanca	((opcao)102)
+#define igual	((opcao)103)
+#define maior	((opcao)104)
+#define menor	((opcao)105)
 
 #endif

@@ -18,26 +18,25 @@
 #define _SAIDAS_H_
 
 #include "defines.h"
-#include "inputs.h"
-#include "timer.h"
 
 class Saida {
 	
 protected:
 	
-	uint8_t _pin;
-	logico estado;
+	opcao _pino;
+	sfr _registrador;
+	logico _estado;
 	
 private:
 	
-	virtual void configura(uint8_t);
+	virtual void configura(opcao, sfr);
 	virtual void atualiza(logico);
 	logico leitura();
 
 public:
 
 	Saida();
-	Saida(uint8_t);
+	Saida(opcao, sfr);
 	
 	void operator= (logico);
 	logico operator& (logico);

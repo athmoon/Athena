@@ -19,23 +19,15 @@
 
 #include "defines.h"
 
-#define	subida	((uint8_t)100)
-#define	descida	((uint8_t)101)
-#define mudanca	((uint8_t)102)
-
-#define	igual	((uint8_t)103)
-#define menor	((uint8_t)104)
-#define maior	((uint8_t)105)
-
 class Temporizador {
 	
 protected:
 	
 	numerico _tempo;
-	uint32_t referencia;
+	longo _referencia;
 	
-	logico estado;
-	logico trava;
+	logico _estado;
+	logico _trava;
 	
 private:
 

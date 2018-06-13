@@ -14,45 +14,37 @@
  */
 
 
-#ifndef _COUNTER_H_
-#define _COUNTER_H_
+#include "pulse.h"
 
-#include "defines.h"
+logico Pulsador::leitura() {
+	return _estado;
+}
 
-class Contador {
-	
-protected:
+void Pulsador::verifica(logico io) {
+	if( io && _trava == 0 ) {
+		_estado = !_estado;
+		_trava = 1;
+	}
+	if( !io )
+		_trava = 0;
+}
 
+Pulsador::Pulsador() {
+	_estado = 0;
+}
 
-	logico _anterior;
-	logico _estado;	
-	
-	opcao _deteccao;
-	opcao _operacao;
-		
-	numerico _contador;
-	numerico _comparador;
-	
-private:
+void Pulsador::operator= (logico v) {
+	verifica(v);
+}
 
+logico Pulsador::operator& (logico v) {
+	return leitura()&v;
+}
 
-	void configura(numerico, opcao, opcao);
-	void verifica(logico);
-	logico leitura();
-	void reset();
+logico Pulsador::operator| (logico v) {
+	return leitura()|v;
+}
 
-public:
-
-	logico limpar;
-	
-	Contador();	
-	Contador(numerico, opcao operacao = igual, opcao deteccao = subida);
-	
-	void operator= (logico);
-	logico operator& (logico);
-	logico operator| (logico);
-	logico operator! ();
-	
-};
-
-#endif
+logico Pulsador::operator! () {
+	return !leitura();
+}

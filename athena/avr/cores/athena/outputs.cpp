@@ -16,43 +16,32 @@
 
 #include "outputs.h"
 
-void Saida::configura(uint8_t pin) {
-	_pin = pin;
-	estado = 0;
-#ifndef ATTINY
-	PORTD&=~bv(_pin);
-	DDRD|=bv(_pin);
-#else
-	PORTB&=~bv(_pin);
-	DDRB|=bv(_pin);
-#endif
+void Saida::configura(opcao pino, sfr registradores) {
+	
+	_pino = pino;
+	_registrador = registradores+port;
+
+	*((sfr)registradores+port) &= ~bv(pino);
+	*((sfr)registradores+ddr) |= bv(pino);
 }
 
 void Saida::atualiza(logico v) {
-	estado = v;
+	_estado = v;
 	if(v)
-#ifndef ATTINY
-		PORTD|=bv(_pin);
-#else
-		PORTB|=bv(_pin);
-#endif
+		*_registrador |= bv(_pino);
 	else
-#ifndef ATTINY
-		PORTB&=~bv(_pin);
-#else
-		PORTB&=~bv(_pin);
-#endif
+		*_registrador &= ~bv(_pino);
 }
 
 logico Saida::leitura() {
-	return estado;
+	return _estado;
 }
 
 Saida::Saida() {
 }
 
-Saida::Saida(uint8_t pin){ 
-	configura(pin);
+Saida::Saida(opcao pino, sfr registradores){ 
+	configura(pino, registradores);
 };
 
 void Saida::operator= (logico v) { 

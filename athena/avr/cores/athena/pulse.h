@@ -14,39 +14,27 @@
  */
 
 
-#ifndef _COUNTER_H_
-#define _COUNTER_H_
+#ifndef _PULSE_H_
+#define _PULSE_H_
 
 #include "defines.h"
 
-class Contador {
+class Pulsador {
 	
 protected:
 
 
-	logico _anterior;
-	logico _estado;	
-	
-	opcao _deteccao;
-	opcao _operacao;
-		
-	numerico _contador;
-	numerico _comparador;
+	logico _estado;
+	logico _trava;
 	
 private:
 
-
-	void configura(numerico, opcao, opcao);
 	void verifica(logico);
 	logico leitura();
-	void reset();
 
 public:
-
-	logico limpar;
 	
-	Contador();	
-	Contador(numerico, opcao operacao = igual, opcao deteccao = subida);
+	Pulsador();
 	
 	void operator= (logico);
 	logico operator& (logico);
@@ -56,3 +44,4 @@ public:
 };
 
 #endif
+

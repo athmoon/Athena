@@ -17,25 +17,50 @@
 #ifndef ATHENA_H
 #define ATHENA_H
 
+/*Inclusoes dos modulos*/
+
 #include "defines.h"
 
-#include "analog.h"
 #include "inputs.h"
 #include "outputs.h"
 #include "timer.h"
 #include "counter.h"
+#include "pulse.h"
 
-class Marcelino {
+/*Configuracoes iniciais*/
+class Athena {
 public:
-	Marcelino() {
-		ACSR |= (1<<ACD);
-		PRR = 255;
+	Athena() {
+        /*Economia de energia*/
+		ACSR |= (1<<ACD);/*desativa comparadores analogicos*/
+		PRR = 255;/*desativa perifericos*/
 	}
 };
 
-static Marcelino marcelino;
+/*Habilita configuracoes iniciais*/
+static Athena athena;
 
-#ifndef ATTINY
+/*Prototipo Entradas e Saidas pre definidas, instancias feitas no arquivo main.cpp*/
+
+#ifdef ATHENA328P
+
+extern Entrada I0;
+extern Entrada I1;
+extern Entrada I2;
+extern Entrada I3;
+extern Entrada I4;
+extern Entrada I5;
+
+extern Saida Q0;
+extern Saida Q1;
+extern Saida Q2;
+extern Saida Q3;
+extern Saida Q4;
+extern Saida Q5;
+
+#endif
+
+#ifdef ATHENA328
 
 extern Entrada I0;
 extern Entrada I1;
@@ -47,7 +72,9 @@ extern Saida Q1;
 extern Saida Q2;
 extern Saida Q3;
 
-#else
+#endif
+
+#ifdef ATHENA85
 
 extern Entrada I0;
 extern Entrada I1;

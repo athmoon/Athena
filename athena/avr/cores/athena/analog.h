@@ -22,7 +22,7 @@
 class Analog {
 public:
 	Analog();
-	uint16_t read(uint8_t pin);
+	uint16_t read(uint8_t pino);
 };
 
 #endif

@@ -16,7 +16,7 @@
 
 #include "timer.h"
 
-uint32_t countTime;
+longo countTime;
 
 ISR(TIMER0_OVF_vect) {
 	TCNT0 = 5;
@@ -25,37 +25,48 @@ ISR(TIMER0_OVF_vect) {
 
 void Temporizador::configura(numerico tempo) {
 	PRR &= ~bv(PRTIM0);
+	
 	_tempo = tempo;
-	estado = 0;
-	trava = 0;
+	_estado = 0;
+	_trava = 0;
+	
 	TCCR0A = 0;
 	TCCR0B = bv(CS01)|bv(CS00);
-#ifndef	ATTINY
-	TIMSK0 = bv(TOIE);
+
+#ifndef	ATHENA85
+	TIMSK0 = bv(TOIE0);
 #else
 	TIMSK = bv(TOIE0);
 #endif
+
 	sei();
 	
 }
 
 void Temporizador::verifica(logico v) {
+	
 	if(v) {
-		if(!trava) {
-			referencia = countTime;
-			trava = 1;
+	
+		if(!_trava) {
+			_referencia = countTime;
+			_trava = 1;
 		}
-		if( (countTime - referencia) >= _tempo )
-			estado = 1;
+	
+		if( (countTime - _referencia) >= _tempo ) {
+			_estado = 1;
+		}
+		
 	}
+	
 	else {
-		estado = 0;
-		trava = 0;
+		_estado = 0;
+		_trava = 0;
 	}
+
 }
 
 logico Temporizador::leitura() {
-	return estado;
+	return _estado;
 }
 
 Temporizador::Temporizador() {

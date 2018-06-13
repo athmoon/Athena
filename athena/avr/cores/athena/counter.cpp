@@ -16,7 +16,7 @@
 
 #include "counter.h"
 
-void Contador::configura(numerico comparar, uint8_t operacao, uint8_t deteccao) {	
+void Contador::configura(numerico comparar, opcao operacao, opcao deteccao) {	
 	_comparador = comparar;
 	_operacao = operacao;
 	_deteccao = deteccao;
@@ -26,7 +26,7 @@ logico Contador::leitura() {
 	return _estado;
 }
 
-Contador::Contador(numerico comparar, uint8_t operacao, uint8_t deteccao) {
+Contador::Contador(numerico comparar, opcao operacao, opcao deteccao) {
 	configura(comparar, operacao, deteccao);
 }
 
@@ -37,6 +37,7 @@ void Contador::reset() {
 }
 
 void Contador::verifica(logico io) {
+	
 	if( io != _anterior ) {
 		switch(_deteccao) {
 				case subida:
@@ -53,6 +54,7 @@ void Contador::verifica(logico io) {
 					break;
 		}
 	}
+	
 	switch(_operacao) {
 		case igual:
 			_estado = ( _contador == _comparador ? 1 : 0 );
@@ -64,8 +66,11 @@ void Contador::verifica(logico io) {
 			_estado = ( _contador < _comparador ? 1 : 0 );
 			break;
 	}
-	if(limpar)
+	
+	if(limpar) {
 		reset();
+	}
+
 }
 
 void Contador::operator= (logico v) {

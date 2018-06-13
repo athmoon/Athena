@@ -18,26 +18,46 @@
 #include "inputs.h"
 #include "outputs.h"
 
-#ifndef ATTINY
+#ifdef ATHENA328P
 
-Entrada I0(0);
-Entrada I1(1);
-Entrada I2(2);
-Entrada I3(3);
+Entrada I0(2, SFR_D);
+Entrada I1(3, SFR_D);
+Entrada I2(4, SFR_D);
+Entrada I3(5, SFR_D);
+Entrada I4(6, SFR_D);
+Entrada I5(7, SFR_D);
 
-Saida Q0(2);
-Saida Q1(3);
-Saida Q2(4);
-Saida Q3(5);
+Saida Q0(0, SFR_B);
+Saida Q1(1, SFR_B);
+Saida Q2(2, SFR_B);
+Saida Q3(3, SFR_B);
+Saida Q4(4, SFR_B);
+Saida Q5(5, SFR_B);
 
-#else
+#endif
 
-Entrada I0(3);
-Entrada I1(4);
+#ifdef ATHENA328
 
-Saida Q0(0);
-Saida Q1(1);
-Saida Q2(2);
+Entrada I0(2, SFR_D);
+Entrada I1(3, SFR_D);
+Entrada I2(4, SFR_D);
+Entrada I3(5, SFR_D);
+
+Saida Q0(0, SFR_B);
+Saida Q1(1, SFR_B);
+Saida Q2(2, SFR_B);
+Saida Q3(3, SFR_B);
+
+#endif
+
+#ifdef ATHENA85
+
+Entrada I0(3, SFR_B);
+Entrada I1(4, SFR_B);
+
+Saida Q0(0, SFR_B);
+Saida Q1(1, SFR_B);
+Saida Q2(2, SFR_B);
 
 #endif
 

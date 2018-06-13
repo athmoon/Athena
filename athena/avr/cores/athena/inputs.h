@@ -23,17 +23,18 @@ class Entrada {
 	
 protected:
 
-	uint8_t _pin;
+	opcao _pino;
+	sfr _registrador;
 	
 private:
 	
-	virtual void 	configura(uint8_t);
+	virtual void 	configura(opcao, sfr);
 	virtual logico	leitura();
 
 public:
 
 	Entrada();
-	Entrada(uint8_t);
+	Entrada(opcao, sfr);
 	
 	logico operator& (logico);
 	logico operator| (logico);

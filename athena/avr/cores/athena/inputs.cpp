@@ -16,18 +16,22 @@
 
 #include "inputs.h"
 
-void Entrada::configura(uint8_t pin) {
-	_pin = pin;
-	PORTB|=bv(pin);
-	DDRB&=~bv(pin);
+void Entrada::configura(opcao pino, sfr registradores) {
+	
+	_pino = pino;
+	_registrador = registradores+pin;
+
+	*((sfr)registradores+port) |= bv(pino);
+	*((sfr)registradores+ddr) &= ~bv(pino);
+	
 }
 
 logico Entrada::leitura() {
-	return PINB&bv(_pin) ? 0 : 1; 
+	return *_registrador&bv(_pino) ? 0 : 1; 
 }
 
-Entrada::Entrada(uint8_t pin){ 
-	configura(pin);
+Entrada::Entrada(opcao pino, sfr registradores){ 
+	configura(pino, registradores);
 };
 
 logico Entrada::operator& (logico v) {
